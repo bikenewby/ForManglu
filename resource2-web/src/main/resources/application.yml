@@ -1,0 +1,25 @@
+server:
+  port: 0
+#  port: 8056
+#  Use port: 0 to use random port number
+  contextPath: /scb/rest/ent-api
+
+management:
+  security:
+    enabled: false
+
+eureka:
+  client:
+    serviceUrl:
+# For Docker
+#      defaultZone: http://svcregistry:1111/eureka/
+# For localhost
+      defaultZone: http://localhost:1120/eureka/
+  instance:
+    # Use random instance Id in case using port: 0. Remove below line if using fixed port number
+    instanceId: ${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}}
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 5
+    leaseExpirationDurationInSeconds: 8
+    metadata-map:
+      management.port: ${management.port:8081}
